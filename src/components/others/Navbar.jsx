@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
-  return (
+    const navigate = useNavigate()
+    const data = JSON.parse(localStorage.getItem("userData"))
+
+    const logout = ()=>{
+        localStorage.removeItem("userData")
+        navigate("/")
+    }
+
+    return (
     <>
         <div className='flex items-center justify-between bg-gray-800 text-white px-8 
         py-3 border-b border-gray-700'>
@@ -11,11 +20,13 @@ const Navbar = () => {
                     Hello,
                 </p>
                 <h1 className='text-2xl sm:text-3xl font-semibold tracking-wide'>
-                    Himanshu
+                    {data.name}
                 </h1>
             </div>
 
-            <button className='bg-teal-600 hover:bg-teal-500 transition px-4 py-2 rounded-md font-medium'>
+            <button 
+            onClick={logout}
+            className='bg-teal-600 hover:bg-teal-500 transition px-4 py-2 rounded-md font-medium'>
                 Log Out
             </button>
 
